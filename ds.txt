@@ -1,0 +1,258 @@
+// queue
+
+#include<stdio.h>
+#include<stdlib.h>
+void enqueue(int ele);
+void dequeue();
+void display();
+int queue[100],max=3;
+int front=-1,rear=-1;
+void main()
+{
+	int choice,ele;
+	printf("1.Enqueue\n2.Dequeue\n3.Display\n");
+	while(1)
+	{
+		printf("Choice:");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1: printf("Enter the element: ");
+					scanf("%d",&ele);
+					enqueue(ele);
+					break;
+			case 2: dequeue();
+					break;
+			case 3: display();
+					break;
+			default: printf("Program Terminated!!!");
+					exit(0);
+		}
+	}
+}
+void enqueue(int ele)
+{
+	if(rear==max-1)
+	{
+		printf("Queue Overflow\n");
+		return;
+	}
+	else if((rear==-1)&&(front==-1))
+		front=rear=0;
+	queue[++rear]=ele;
+}
+void dequeue()
+{
+	if(front==-1)
+		printf("Queue Unerflow\n");
+	else 
+	{
+		printf("Dequeued Element = %d\n",queue[front]);
+		if(front==rear)
+			front=rear=-1;
+		else
+			front++;
+	}
+}
+void display()
+{
+	int i;
+	if((rear==-1)||(front==-1))
+		printf("Queue Empty\n");
+	else
+	{
+		printf("Elements: ");
+		for(i=front;i<=rear;i++)
+			printf("%d ",queue[i]);
+		printf("\n");
+	}
+}
+
+
+---------------
+
+#include<stdio.h>
+#include<stdlib.h>
+void enqueueRear(int ele);
+void dequeueFront();
+void enqueueFront(int ele);
+void dequeueRear();
+void display();
+int queue[100],max=5;
+int front=-1,rear=-1;
+void main()
+{
+	int choice,ele;
+	printf("1.EnqueueRear\n2.DequeueFront\n3.EnqueueFront\n4.DequeueRear\n5.Display\n");
+	while(1)
+	{
+		printf("Choice:");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1: printf("Enter the element: ");
+					scanf("%d",&ele);
+					enqueueRear(ele);
+					break;
+			case 2: dequeueFront();
+					break;
+			case 3: printf("Enter the element: ");
+					scanf("%d",&ele);
+					enqueueFront(ele);
+					break;
+			case 4: dequeueRear();
+					break;
+			case 5: display();
+					break;
+			default: printf("Program Terminated!!!");
+					exit(0);
+		}
+	}
+}
+void enqueueRear(int ele)
+{
+	if(rear==max-1)
+		printf("Queue Overflow\n");
+	else if((rear==-1)&&(front==-1))
+		front=rear=0;
+	else
+		rear=rear+1;
+	queue[rear]=ele;
+	display();
+}
+void dequeueFront()
+{
+	if(front==-1)
+		printf("Queue Unerflow\n");
+	else 
+	{
+		printf("Dequeued Element = %d\n",queue[front]);
+		if(front==rear)
+			front=rear=-1;
+		else
+			front++;
+	}
+	display();
+}
+void enqueueFront(int element)
+{
+	if(front<=0)
+		printf("Queue Full");
+	else
+		queue[--front]=element;
+	display();
+}
+void dequeueRear()
+{
+	if(rear==-1)
+		printf("Queue Empty\n");
+	else
+	{
+		printf("Dequeued Element at Rear = %d\n",queue[rear]);
+		if(front==rear)
+			front=rear=-1;
+		else
+			rear=rear-1;
+	}
+	display();
+}
+void display()
+{
+	int i;
+	if((rear==-1)||(front==-1))
+		printf("Queue Empty\n");
+	else
+	{
+		printf("Elements: ");
+		for(i=front;i<=rear;i++)
+			printf("%d ",queue[i]);
+		printf("\n");
+	}
+}
+
+
+
+
+
+//circular
+
+
+#include<stdio.h>
+#include<stdlib.h>
+void enqueue(int ele);
+void dequeue();
+void display();
+int queue[100],max=5;
+int front=-1,rear=-1;
+void main()
+{
+	int choice,ele;
+	printf("1.Enqueue\n2.Dequeue\n3.Display\n");
+	while(1)
+	{
+		printf("Choice:");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1: printf("Enter the element: ");
+					scanf("%d",&ele);
+					enqueue(ele);
+					break;
+			case 2: dequeue();
+					break;
+			case 3: display();
+					break;
+			default: printf("Program Terminated!!!");
+					exit(0);
+		}
+	}
+}
+void enqueue(int ele)
+{
+	if((rear==max-1)&&(front==0))//||(front==rear+1))
+		printf("Queue Overflow\n");
+	else if((rear==-1)&&(front==-1))
+		front=rear=0;
+	else if((rear==max-1)&&(front!=0))
+		rear=0;
+	else
+		rear=rear+1;
+	queue[rear]=ele;
+}
+void dequeue()
+{
+	if(front==-1)
+		printf("Queue Unerflow\n");
+	else 
+	{
+		printf("Dequeued Element = %d\n",queue[front]);
+		if(front==rear)
+			front=rear=-1;
+		else if(front==max-1)
+			front=0;
+		else
+			front++;
+	}
+}
+void display()
+{
+	int i;
+	if((rear==-1)||(front==-1))
+		printf("Queue Empty\n");
+	else if(rear>=front)
+	{
+		printf("Elements: ");
+		for(i=front;i<=rear;i++)
+			printf("%d ",queue[i]);
+		printf("\n");
+	}
+	else
+	{
+		printf("Elements: ");
+		for(i=front;i<max;i++)
+			printf("%d ",queue[i]);
+		for(i=0;i<=rear;i++)
+			printf("%d ",queue[i]);
+		printf("\n");			
+	}
+}

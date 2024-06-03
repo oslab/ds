@@ -1,0 +1,401 @@
+//singly linked list
+
+#include<stdlib.h> 
+#include<stdio.h> 
+void insert_begin(); 
+void insert_end(); 
+void insert_pos(); 
+void delete_begin(); 
+void delete_end(); 
+void delete_pos(); 
+void display(); 
+struct node { 	
+	int data; 	
+	struct node *next; 
+}*head=NULL,*tail=NULL; 
+int count=0;
+void main() 
+{ 
+	int choice,con,element,pos; 
+	printf("1.Insertion at Begin\n2.Insertion at End\n3.Insertion at Position\n4.Deletion at Begin\n5.Deletion at End\n6.Deletion at Position\n7.Display"); 	
+	while(1)	{ 	
+		printf("\nEnter the choice:"); 	
+		scanf("%d",&choice); 	
+		switch(choice) 	{ 		
+			case 1:insert_begin(); 	break; 		
+			case 2:insert_end(); break; 		
+			case 3:insert_pos(); break; 		
+			case 4:delete_begin(); break; 		
+			case 5:delete_end(); break; 		
+			case 6:delete_pos(); break; 		
+			case 7:display(); break;
+			default:printf("Program Terminated!!!");exit(0); 	
+		} 	
+	} 
+} 
+void insert_begin() 
+{ 	
+	struct node *newnode; 	
+	newnode=(struct node*)malloc(sizeof(struct node)); 
+	printf("Enter the element:"); 	
+	scanf("%d",&newnode->data);  	
+	newnode->next=NULL; 	
+	if(head==NULL) 	{ 		
+		head=newnode; 		
+		tail=newnode; 	
+	} 	
+	else 	
+	{ 		
+		newnode->next=head; 		
+		head=newnode; 	
+	} 
+	count++;
+	display();
+} 
+void insert_end() 
+{ 	
+	struct node *newnode; 	
+	newnode=(struct node*)malloc(sizeof(struct node));
+	printf("Enter the element:");  	
+	scanf("%d",&newnode->data); 	
+	newnode->next=NULL; 	
+	if(head==NULL) 	
+	{ 		
+		head=newnode; 		
+		tail=newnode; 	
+	}
+ 	else 	
+	{ 		
+		tail->next=newnode; 		
+	 	tail=newnode; 	
+	} 
+	count++;
+	display();
+} 
+void insert_pos() 
+{ 		
+	int position,i; 
+    printf("Enter the position:"); 		
+	scanf("%d",&position); 	
+	if(position==1)
+		insert_begin();
+	else if(position==count+1)
+		insert_end();
+	else if(position>count+1)
+		printf("Not Possible\n");
+	else 	
+	{	 		
+		struct node *newnode,*temp; 	
+		newnode=(struct node*)malloc(sizeof(struct node));
+		printf("Enter the element:");  	
+		scanf("%d",&newnode->data); 	
+		newnode->next=NULL; 
+		if(head==NULL) 
+		{
+ 			head=newnode; 
+	 		tail=newnode;
+			count++; 	
+		}
+		else
+		{
+			temp=head; 		
+			for(i=1;i<position-1;i++) 	
+				temp=temp->next; 
+	 		newnode->next=temp->next; 
+	 		temp->next=newnode; 
+			count++;	
+		}	 
+	}
+	display();
+} 
+void delete_begin() 
+{ 	
+	if(head==NULL) 	
+	 	printf("\nThe list is empty"); 
+	else if(head==tail)
+	{
+		free(head);
+		head=tail=NULL;
+	}		
+	else 	
+	{ 		
+		struct node*delnode; 		
+		delnode=head; 		
+		head=head->next; 		
+		delnode->next=NULL; 		
+		free(delnode); 	
+	} 
+	count--;
+	display();
+} 
+void delete_end() 
+{ 	
+	if(head==NULL) 			
+		printf("\nThe list is empty"); 
+	else if(head==tail)
+	{
+		free(head);
+		head=tail=NULL;
+	}	
+	else 	
+	{ 		
+		struct node *delnode,*temp; 		
+		temp=head; 		
+		delnode=tail; 		
+		while(temp->next!=tail) 			
+			temp=temp->next; 		
+		temp->next=NULL; 		
+		tail=temp; 		
+		free(delnode); 	
+	} 
+	count--;
+	display();
+} 
+void delete_pos() 
+{ 	
+	int position,i; 
+    printf("Enter the position:"); 
+	scanf("%d",&position); 
+	if(head==NULL)
+		printf("List empty. Cannot Delete\n");
+	else if(head==tail)
+	{
+		free(head);
+		head=tail=NULL;
+		count--;
+	}
+	else if(position==1)
+		delete_begin();
+	else if(position==count)
+		delete_end();
+	else if (position<=0||position>count)
+		printf("Not Possible\n");
+	
+	else{		 		
+		struct node*delnode,*temp; 
+		temp=head; 		
+		for(i=1;i<position-1;i++)
+			temp=temp->next;
+		delnode=temp->next;
+		temp->next=delnode->next;
+		free(delnode); 	
+		count--;
+	} 
+	display();
+} 
+void display() 
+{ 	
+	struct node *temp; 	
+	
+	if(temp==NULL) 		
+		printf("There is no element in the list"); 	
+	else 	
+	{ 		
+		printf("The elements are:");
+		for(temp=head;temp!=NULL;temp=temp->next)		 		
+			printf("%d->",temp->data); 			
+	 	printf("NULL\n");
+	 //	printf("Count = %d\n",count);
+	} 
+}
+
+
+
+
+
+
+//doubly linked list
+
+
+//Doubly Linked List:
+
+#include<stdlib.h>
+#include<stdio.h>
+void insert_begin(int element);
+void insert_end(int element);
+void insert_pos(int element);
+void delete_begin();
+void delete_end();
+void delete_pos();
+void display();
+struct node
+{
+	int data;
+	struct node *next;
+	struct node *prev;
+}*head=NULL,*tail=NULL;
+main()
+{
+int choice,con,element,pos;
+printf("1.Insertion at front\n2.insertion at end\n3.insertion at position\n4.Deletion at begin\n5.Deletion at end\n6.Deletion at position\n7.Display");
+while(1)
+{
+	printf("\nEnter the choice:");
+	scanf("%d",&choice);
+	switch(choice)
+	{
+		case 1: 
+			printf("Enter the element:");
+			scanf("%d",&element);
+			insert_begin(element);
+			break;
+		case 2: 
+			printf("Enter the element:");
+			scanf("%d",&element);
+			insert_end(element);
+			break;
+		case 3: 
+			printf("Enter the element:");
+			scanf("%d",&element);
+			insert_pos(element);
+			break;
+		case 4: delete_begin();
+			break;
+		case 5: delete_end();
+			break;
+		case 6: delete_pos();
+			break;
+		case 7: display();
+			break;
+		default: printf("Termination!!!\n");
+				 exit(1);
+	}
+}
+}
+void insert_begin(int element)
+{
+	struct node *newnode;
+	newnode=(struct node*)malloc(sizeof(struct node));
+	newnode->data=element;
+	newnode->next=NULL;
+	newnode->prev=NULL;
+	if(head==NULL)
+	{
+		head=newnode;
+		tail=newnode;
+	}
+	else
+	{
+		newnode->next=head;
+		head->prev=newnode;
+		head=newnode;
+	}
+}
+void insert_end(int element)
+{
+	struct node *newnode;
+	newnode=(struct node*)malloc(sizeof(struct node));
+	newnode->data=element;
+	newnode->next=NULL;
+	if(head==NULL)
+	{
+		head=newnode;
+		tail=newnode;
+	}
+	else
+	{
+		tail->next=newnode;
+		newnode->prev=tail;
+		tail=newnode;
+	}
+}
+void insert_pos(int element)
+{
+	int position,i;
+	struct node *newnode,*temp;
+	newnode=(struct node*)malloc(sizeof(struct node));
+	newnode->data=element;
+	newnode->next=NULL;
+	if(head==NULL)
+	{
+		head=newnode;
+		tail=newnode;
+	}
+	else
+	{	
+		temp=head;
+		printf("Enter the position:");
+		scanf("%d",&position);
+		for(i=1;i<position-1;i++)
+		{
+			temp=temp->next;
+		}
+		newnode->next=temp->next;
+		newnode->prev=temp;
+		temp->next=newnode;
+		newnode->next->prev=newnode;
+	}
+}
+void delete_begin()
+{
+	if(head==NULL)
+	{
+		printf("The list is empty");
+	}
+	else
+	{
+		struct node*delnode;
+		delnode=head;
+		head=head->next;
+		head->prev=NULL;
+		delnode->next=NULL;
+		free(delnode);
+	}
+}
+void delete_end()
+{
+	if(head==NULL)
+	{
+		printf("The list is empty");
+	}
+	else
+	{
+		struct node*delnode;
+		delnode=tail;
+		tail=tail->prev;
+		tail->next=NULL;
+		delnode->prev=NULL;
+		free(delnode);
+	}
+}
+void delete_pos()
+{
+	if(head==NULL)
+	{
+		printf("The list is empty");
+	}
+	else
+	{
+		int i,position;		
+		struct node*delnode,*temp;
+		temp=head;
+		printf("Enter the position:");
+		scanf("%d",&position);
+		for(i=1;i<position-1;i++)
+		{
+			temp=temp->next;
+		}
+		delnode=temp->next;
+		temp->next=delnode->next;
+		delnode->next->prev=temp;
+		delnode->prev=NULL;
+		delnode->next=NULL;
+		free(delnode);
+	}
+}
+void display()
+{
+	struct node *temp;
+	temp=head;
+	if(temp==NULL)
+		printf("There is no element in the list");
+	else
+	{
+		printf("The elements are:");		
+		while(temp!=NULL)
+		{
+			printf("%d->",temp->data);
+			temp=temp->next;
+		}
+	}
+}

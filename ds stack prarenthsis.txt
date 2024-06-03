@@ -1,0 +1,145 @@
+#include<stdio.h>
+#include<stdlib.h>
+void push();
+void pop();
+void display();
+int isFull();
+int isEmpty();
+void peek();
+
+
+int top=-1,max=10;     
+int stack[max];
+void main()
+{
+	int choice,ele;
+	printf("1.Push\n2.Pop\n3.Display\n4.isFull\n5.isEmpty\n6.Peek\n");
+	while(1)
+	{
+		printf("Choice:");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+			case 1: push();
+					break;
+			case 2: pop();
+					break;
+			case 3: display();
+					break;
+			case 4: if(isFull())
+						printf("Stack is FULL\n");
+					else
+						printf("Stack is NOT FULL\n");
+					break;
+			case 5: if(isEmpty())
+						printf("Stack is EMPTY\n");
+					else
+						printf("Stack is NOT EMPTY\n");
+					break;
+			case 6: peek();
+					break;
+			default: printf("Program Terminated!!!\n");
+					exit(0);
+		}
+	}
+}
+void push()
+{
+	int element;
+	if(top==max-1)
+		printf("Stack Overflow\n");
+	else
+	{
+		printf("Enter the element: ");
+		scanf("%d",&element);
+		stack[++top]=element;                // imp 
+	}
+		
+}
+void pop()
+{
+	if(top==-1)
+		printf("Stack Underflow\n");
+	else
+		printf("Popped Element = %d\n",stack[top--]);     //imp
+} 
+void display()
+{
+	int i;
+	if(top==-1)
+	printf("Stack Empty\n");
+	else
+	{
+		printf("Elements: ");
+		for(i=top;i>=0;i--)
+			printf("%d ",stack[i]);
+		printf("\n");
+	}
+}
+int isFull()
+{
+ if(top==max-1)
+   return 1;
+else
+  return 0;
+}
+int isEmpty()
+{
+ if(top==-1)
+   return 1;
+else
+  return 0;
+}
+void peek()
+{
+	if(top==-1)
+		printf("Stack Underflow\n");
+	else
+ 		printf("Peek = %d\n",stack[top]);
+}
+
+
+
+
+//praenthisis
+
+#include <stdio.h>
+#define size 5
+char s[size];
+int top = -1 ;
+void push(char x){
+	s[++top] = x;
+	
+}
+void pop(){
+	top--;
+}
+int isEmpty(){
+	return top ==-1;
+}
+int main(){
+	char a[30];
+	scanf("%s",&a);
+	for(int i=0;a[i]!='\0';i++){
+	 	if(a[i]=='[' || a[i]=='{' || a[i]=='('){
+	 		push(a[i]);
+		}
+		else if(a[i]=='}' || a[i]==']' || a[i]==')'){
+		 	if((a[i]=='}' && s[top]=='{') || (a[i]==']' && s[top]=='[') || (a[i]==')' && s[top]==')')){
+		 		pop();
+			}
+			else{
+				printf("false");
+				return 0;
+			}
+		}
+			
+	}
+	if(isEmpty()){
+		printf("True");
+	}
+	else {
+		printf("false");
+	}
+}
+
